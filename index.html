@@ -9,11 +9,19 @@
 <body>
 <main>
   <h1>GitHub Pages Sample</h1>
-  <a href="http://www.yahoo.co.jp"><button>Test</button></a>
+  <input type="button" value="パスワードを入力する" onclick="gate();">
 </main>
-
+  
 <script>
 console.log('GitHub Pages Sample');
 </script>
+  
+<script type="text/javascript">
+   function gate() {
+      var UserInput = prompt("パスワードを入力して下さい:","");
+      location.href = UserInput + ".html";
+   }
+</script>  
+  
 </body>
 </html>
