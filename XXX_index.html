@@ -8,47 +8,26 @@
 
 <body>
 <main>
-<a href="https://youravhost.net/search?q=鈴村あいり">鈴村あいり	</a>
-<a href="https://youravhost.net/search?q=葵">葵	</a>
-<a href="https://youravhost.net/search?q=園田みおん">園田みおん	</a>
-<a href="https://youravhost.net/search?q=坂道みる">坂道みる	</a>
-<a href="https://youravhost.net/search?q=水卜さくら">水卜さくら	</a>
-<a href="https://youravhost.net/search?q=桜空もも">桜空もも	</a>
-<a href="https://youravhost.net/search?q=相沢みなみ">相沢みなみ	</a>
-<a href="https://youravhost.net/search?q=深田えいみ">深田えいみ	</a>
-<a href="https://youravhost.net/search?q=美谷朱里">美谷朱里	</a>
-<a href="https://youravhost.net/search?q=桃乃木かな">桃乃木かな	</a>
-<a href="https://youravhost.net/search?q=橋本ありな">橋本ありな	</a>
-<a href="https://youravhost.net/search?q=高橋しょう子">高橋しょう子</a>
-<a href="https://youravhost.net/search?q=神宮寺ナオ">神宮寺ナオ	</a>
-<a href="https://youravhost.net/search?q=三上悠亜">三上悠亜	</a>
-<a href="https://youravhost.net/search?q=河合あすな">河合あすな	</a>
-<a href="https://youravhost.net/search?q=枢木あおい">枢木あおい	</a>
-<a href="https://youravhost.net/search?q=野々浦暖">野々浦暖	</a>
-<a href="https://youravhost.net/search?q=有坂深雪">有坂深雪	</a>
-<a href="https://youravhost.net/search?q=あおいれな">あおいれな	</a>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['鈴村あいり','葵','園田みおん','坂道みる','水卜さくら','桜空もも','相沢みなみ','深田えいみ','美谷朱里','桃乃木かな','橋本ありな','高橋しょう子','神宮寺ナオ','三上悠亜','河合あすな','枢木あおい','野々浦暖','有坂深雪','あおいれな'];
+    var div = document.getElementById('text');
 
--------------------<br>
--------------------<br>
-<a href="https://jp.pornhub.com/video/search?search=鈴村あいり">鈴村あいり	</a>
-<a href="https://jp.pornhub.com/video/search?search=葵">葵	</a>
-<a href="https://jp.pornhub.com/video/search?search=園田みおん">園田みおん	</a>
-<a href="https://jp.pornhub.com/video/search?search=坂道みる">坂道みる	</a>
-<a href="https://jp.pornhub.com/video/search?search=水卜さくら">水卜さくら	</a>
-<a href="https://jp.pornhub.com/video/search?search=桜空もも">桜空もも	</a>
-<a href="https://jp.pornhub.com/video/search?search=相沢みなみ">相沢みなみ	</a>
-<a href="https://jp.pornhub.com/video/search?search=深田えいみ">深田えいみ	</a>
-<a href="https://jp.pornhub.com/video/search?search=美谷朱里">美谷朱里	</a>
-<a href="https://jp.pornhub.com/video/search?search=桃乃木かな">桃乃木かな	</a>
-<a href="https://jp.pornhub.com/video/search?search=橋本ありな">橋本ありな	</a>
-<a href="https://jp.pornhub.com/video/search?search=高橋しょう子">高橋しょう子</a>
-<a href="https://jp.pornhub.com/video/search?search=神宮寺ナオ">神宮寺ナオ	</a>
-<a href="https://jp.pornhub.com/video/search?search=三上悠亜">三上悠亜	</a>
-<a href="https://jp.pornhub.com/video/search?search=河合あすな">河合あすな	</a>
-<a href="https://jp.pornhub.com/video/search?search=枢木あおい">枢木あおい	</a>
-<a href="https://jp.pornhub.com/video/search?search=野々浦暖">野々浦暖	</a>
-<a href="https://jp.pornhub.com/video/search?search=有坂深雪">有坂深雪	</a>
-<a href="https://jp.pornhub.com/video/search?search=あおいれな">あおいれな	</a>
+    var tube_s = "<a href=\"https://youravhost.net/search?q="; 
+    var tube_e = "\">[Tube]</a>"; 
+    var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var porn_e = "\">[Porn]</a>";
+
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + "<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
  
 </main>
 </body>
