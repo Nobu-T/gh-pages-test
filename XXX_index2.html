@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Favor</title>
+</head>
+
+<body>
+<main>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['ph5dece8674f9e2'];
+    var div = document.getElementById('text');
+    
+    var porn_s = "<a href=\"https://jp.pornhub.com/view_video.php?viewkey=";
+    var porn_e = "\">[Porn]</a>";
+
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + porn_s + name + porn_e + "<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
+ 
+</main>
+</body>
+</html>
