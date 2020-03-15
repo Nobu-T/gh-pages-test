@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Favorite</title>
+
+<script>
+function clickBtn1(){
+    var div = document.getElementById('text');
+    var div_text = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var div_end = "\">[Watch]</a>";
+    var div_cnt = "";
+
+	const color1 = document.form1.color1;
+
+	for (let i = 0; i < color1.length; i++){
+		if(color1[i].checked){ 
+			div_cnt += color1[i].value + " ";
+		}
+	}
+        div_text += div_cnt + "\">" + div_cnt + "</a>";
+	div.innerHTML= div_text ;
+}
+</script>
+</head>
+
+<body>
+<main>
+
+<form name="form1">
+	<input type="checkbox" name="color1" value="無修正" checked> 無修正
+	<input type="checkbox" name="color1" value="巨乳" > 巨乳
+	<input type="checkbox" name="color1" value="美少女" > 美少女
+	<input type="checkbox" name="color1" value="痴女" > 痴女
+	<input type="checkbox" name="color1" value="X1" > テスト
+	<input type="checkbox" name="color1" value="X2" > テスト
+	<input type="checkbox" name="color1" value="X3" > テスト
+</form>
+<input type="button" value="Make" onclick="clickBtn1()"/>
+<div id="text">...</p>
+
+</main>
+</body>
+</html>
