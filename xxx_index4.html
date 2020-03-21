@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Oldies</title>
+</head>
+
+<body>
+<main>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['小林ひとみ','美穂由紀','村上麗奈','葉山レイコ','後藤えり子','松坂季実子','五島めぐ','桜樹ルイ','あいだもも','白石ひとみ','卑弥呼','森川いづみ','朝岡実嶺','きららかおり','浅倉舞','氷高小夜','小室友里','長瀬愛','及川奈央','蒼井そら','南波杏','後藤えり子'];
+    var div = document.getElementById('text');
+
+    var tube_s = "<a href=\"https://youravhost.net/search?q="; 
+    var tube_e = "\">[Tube]</a>"; 
+    var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var porn_e = "\">[Porn]</a>";
+
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + "<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
+ 
+</main>
+</body>
+</html>
