@@ -1,0 +1,126 @@
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>まとめて検索</title>
+  </head>
+  <body>
+    <h1>まとめて検索</h1>
+	<p>検索ワードを入れてください（10つまで）： </p>
+	<form name="form1">
+		<textarea name="text1" rows="4" cols="40"></textarea>
+	</form>
+	<input type="button" value="マルチ検索する" onclick="clickBtn1()"><p>
+	<span id="span1"></span>
+
+	<form name="search1" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search2" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search3" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search4" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search5" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search6" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search7" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search8" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search9" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<form name="search10" method="get" action="http://www.google.co.jp/search" target="_blank">
+	<input type="text" name="q" size="31" maxlength="255" value="">
+	<input type="submit" name="btng" value="検索">
+	<input type="hidden" name="hl" value="ja">
+	</form>
+
+	<script>
+	function clickBtn1(){
+		const t1 = document.form1.text1.value;
+
+		var words = document.form1.text1.value.replace(/\r\n|\r/g, "\n");
+		var lines = words.split('\n');
+		var outArray = new Array();
+
+	        for ( var i = 0; i < lines.length; i++ ) {
+        		switch (i){
+				case 0:
+		 			document.search1.q.value = lines[i];
+             				break;
+				case 1:
+		 			document.search2.q.value = lines[i];
+             				break;
+				case 2:
+		 			document.search3.q.value = lines[i];
+             				break;
+				case 3:
+		 			document.search4.q.value = lines[i];
+             				break;
+				case 4:
+		 			document.search5.q.value = lines[i];
+             				break;
+				case 5:
+		 			document.search6.q.value = lines[i];
+             				break;
+				case 6:
+		 			document.search7.q.value = lines[i];
+             				break;
+				case 7:
+		 			document.search8.q.value = lines[i];
+             				break;
+				case 8:
+		 			document.search9.q.value = lines[i];
+             				break;
+				case 9:
+		 			document.search10.q.value = lines[i];
+             				break;
+				default:beak;
+			}
+     	
+	    	}
+		document.getElementById("span1").textContent = "";
+	}
+	</script>
+  </body>
+</html>
+
+
+
