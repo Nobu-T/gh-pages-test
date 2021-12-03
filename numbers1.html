@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Numbers</title>
+
+<script>
+function clickBtn1(){
+    location.reload();
+}
+</script>
+</head>
+
+<body>
+<font size="36">   
+<main>
+<div id="numbers1">...</div>
+  
+<script>
+    var div1 = document.getElementById('numbers1');
+    var min = 1000000000 ;
+    var max = 9999999999 ;
+    var a = Math.floor( Math.random() * (max + 1 - min) ) + min ;
+    div1.innerHTML= String(a) ;
+</script>
+<input type="button" value="Answer" onclick="clickBtn1()"/>
+</main>
+</body>
+</html>
