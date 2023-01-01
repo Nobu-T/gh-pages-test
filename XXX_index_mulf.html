@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mulf</title>
+</head>
+
+<body>
+<main>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['佐田茉莉子','大島優香','成宮いろは','春谷美雨','白河花清','多田有花','一色桃子','折原ゆかり','白木優子','織田真子','川上ゆう','澤村レイコ','北条麻妃','翔田千里','村上涼子','小池絵美子','風間ゆみ','友田真希','綾瀬麻衣子','加山なつこ'];
+    var div = document.getElementById('text');
+
+    var tube_s = "<a href=\"https://youravhost.net/search?q="; 
+    var tube_e = "\">[Tube]</a>"; 
+    var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var porn_e = "\">[Porn]</a>";
+
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + "<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
+
+</main>
+</body>
+</html>
