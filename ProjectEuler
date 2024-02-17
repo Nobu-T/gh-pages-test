@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ProjectEuler</title>
+
+<script>
+function clickBtn1(){
+    location.reload();
+}
+</script>
+</head>
+
+<body>
+<font size="72" face="arial black">   
+<main>
+<h2 style="text-align:center"><div id="numbers1">...</div></h2>
+  
+<script>
+    var div1 = document.getElementById('numbers1');
+    var min = 1 ;
+    var max = 866 ;
+    var a = Math.floor( Math.random() * (max + 1 - min) ) + min ;
+    div1.innerHTML= https://projecteuler.net/problem=String(a) ;
+</script>
+<input type="button" value="Next" onclick="clickBtn1()"/>
+</main>
+</body>
+</html>
