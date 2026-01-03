@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2023</title>
+</head>
+
+<body>
+<main>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['瀬戸環奈','石川澪','河北彩伽','天使もえ','逢沢ゆみ','金松季歩','つばさ舞','静河','吉高寧々','八木奈々','Minami','松本いちか','小笠原菜及','新木','希空','七沢みあ','石原希望','白石冬萌','北野未奈','笹倉彩'];
+    var div = document.getElementById('text');
+
+    var tube_s = "<a href=\"https://youravhost.net/search?q="; 
+    var tube_e = "\">[Tube]</a>"; 
+    var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var porn_e = "\">[Porn]</a>";
+
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + "<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
+
+</main>
+</body>
+</html>
