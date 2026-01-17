@@ -16,13 +16,14 @@
     var tube_e = "\">[Tube]</a>"; 
     var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
     var porn_e = "\">[Porn]</a>";
-
+    var missav_s = "<a href=\"https://missav.ws/ja/search/";
+    var missav_e = "?page=1\>[Missav]</a>";
     var name = "";
     var div_text = "";
 
     for ( var i = 0;  i < lists.length;  i++  ) {
        name = lists[i];
-       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + "<br>";
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + missav_s + name + missav_e +"<br>";
     }
 
     div.innerHTML= div_text ;
