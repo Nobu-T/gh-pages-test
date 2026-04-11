@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2026</title>
+</head>
+
+<body>
+<main>
+<div id="text">Loading...</p>
+<script>
+    var lists = ['瀬戸環奈','新木希空','糸井瑠花','村上悠華','河北彩花','石川澪','浅野こころ','三田真鈴','清原みゆう','小花のん','楪カレン','東條なつ','山手梨愛'];
+    var div = document.getElementById('text');
+
+    var tube_s = "<a href=\"https://youravhost.net/search?q="; 
+    var tube_e = "\">[Tube]</a>"; 
+    var porn_s = "<a href=\"https://jp.pornhub.com/video/search?search=";
+    var porn_e = "\">[Porn]</a>";
+    var missav_s = "<a href=\"https://missav.ws/ja/search/";
+    var missav_e = "?page=1\>[Missav]</a>";
+    var name = "";
+    var div_text = "";
+
+    for ( var i = 0;  i < lists.length;  i++  ) {
+       name = lists[i];
+       div_text += name + "\t\t:" + tube_s + name + tube_e + porn_s + name + porn_e + missav_s + name + missav_e +"<br>";
+    }
+
+    div.innerHTML= div_text ;
+</script>
+
+</main>
+</body>
+</html>
