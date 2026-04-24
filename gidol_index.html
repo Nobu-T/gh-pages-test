@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>2026 List</title>
+</head>
+
+<body>
+<main>
+    <div id="text">Loading...</div>
+
+    <script>
+        async function loadNames() {
+            try {
+                // 1. 外部ファイルの読み込み
+                const response = await fetch('names.txt');
+                if (!response.ok) throw new Error('ファイルの読み込みに失敗しました');
+                
+                const data = await response.text();
+
+                // 2. 改行で区切って配列にする（空行を除去）
+                const lists = data.split(/\r?\n/).filter(line => line.trim() !== "");
+
+                const div = document.getElementById('text');
+                const tube_s = '<a href="https://gradol.net/?q='; 
+                const tube_e = '">[GIdol]</a>'; 
+                const porn_s = '<a href="https://www.ivseek.com/?s=';
+                const porn_e = '">[ivseek]</a>';
+                const missav_s = '<a href="https://missav.ws/ja/search/';
+                const missav_e = '?page=1">[Missav]</a>';
+
+                let div_text = "";
+
+                // 3. ループ処理でHTMLを生成
+                for (let i = 0; i < lists.length; i++) {
+                    const name = lists[i];
+                    div_text += `${name}\t\t:${tube_s}${name}${tube_e}${porn_s}${name}${porn_e}${missav_s}${name}${missav_e}<br>`;
+                }
+
+                div.innerHTML = div_text;
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('text').innerText = "エラー: データの読み込みに失敗しました。";
+            }
+        }
+
+        // 実行
+        loadNames();
+    </script>
+</main>
+</body>
+</html>
