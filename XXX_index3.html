@@ -1,62 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset=\"UTF-8\">
+<meta charset="UTF-8">
 <title>Select</title>
 
 <script>
-function clickBtn1(){
-    var div = document.getElementById('text');
-    var div_text = \"<a href=\\\"https://jp.pornhub.com/video/search?search=\";
-    var div_end = \">[Watch]</a>\";
-    var div_cnt = \"\";
+document.addEventListener('DOMContentLoaded', async () => {
+  const form = document.forms.form1;
+  const status = document.getElementById('status');
 
-    const color1 = document.form1.color1;
-
-    for (let i = 0; i < color1.length; i++){
-        if(color1[i].checked){
-            div_cnt += color1[i].value + \"　　\";
-        }
+  try {
+    const response = await fetch('./category.txt');
+    if (!response.ok) {
+      throw new Error(`category.txt の読み込みに失敗しました (${response.status})`);
     }
-    div_text += div_cnt + \">\" + div_cnt + \"</a>\";
-    div.innerHTML= div_text ;
-}
-</script>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('category.txt')
-    .then(r => r.text())
-    .then(text => {
-      const form = document.form1;
-      const lines = text.split(/\\\\r?\\\\n/).filter(Boolean);
-      lines.forEach((v, i) => {
-        const input = document.createElement('input');
-        input.type = 'checkbox';
-        input.name = 'color1';
-        input.value = v;
-        if (i === 0) input.checked = true;
-        const label = document.createElement('span');
-        label.textContent = ' ' + v;
-        form.appendChild(input);
-        form.appendChild(label);
-        form.appendChild(document.createElement('br'));
-      });
-    })
-    .catch(err => console.error('Failed to load category.txt', err));
+    const categories = (await response.text())
+      .split(/\r?\n/)
+      .map(category => category.trim())
+      .filter(Boolean);
+
+    categories.forEach((category, index) => {
+      const input = document.createElement('input');
+      input.type = 'checkbox';
+      input.name = 'color1';
+      input.value = category;
+      input.checked = index === 0;
+
+      const label = document.createElement('label');
+      label.append(input, document.createTextNode(` ${category}`));
+      form.append(label, document.createElement('br'));
+    });
+
+    status.textContent = '';
+  } catch (error) {
+    status.textContent = error.message;
+    console.error(error);
+  }
 });
+
+function clickBtn1() {
+  const selected = Array.from(
+    document.querySelectorAll('input[name="color1"]:checked'),
+    input => input.value
+  );
+  const link = document.createElement('a');
+  const url = new URL('https://jp.pornhub.com/video/search');
+  url.searchParams.set('search', selected.join(' '));
+  link.href = url.toString();
+  link.textContent = '[Watch]';
+
+  const output = document.getElementById('text');
+  output.replaceChildren(link);
+}
 </script>
 </head>
 
 <body>
 <main>
-<form name=\"form1\">
-  <!-- checkboxes will be loaded from category.txt -->
-</form>
-<br>
-.....<input type=\"button\" value=\"Make\" onclick=\"clickBtn1()\"/>....
-<br>
-<div id=\"text\">...</p>
+  <form name="form1">
+    <span id="status" role="status"></span>
+  </form>
+  <br>
+  .....<input type="button" value="Make" onclick="clickBtn1()">....
+  <br>
+  <div id="text">...</div>
 </main>
 </body>
 </html>
