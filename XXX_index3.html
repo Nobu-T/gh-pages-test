@@ -45,9 +45,8 @@ function clickBtn1() {
     input => input.value
   );
   const link = document.createElement('a');
-  const url = new URL('https://missav.ws/ja/search/');
-  url.searchParams.set('search', selected.join(' '));
-  link.href = url.toString();
+  const url = `https://missav.ws/ja/search/${selected.join(' ')}`;
+  link.href = url;
   link.textContent = '[Watch]';
 
   const output = document.getElementById('text');
