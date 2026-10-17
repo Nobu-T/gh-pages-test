@@ -2,12 +2,39 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Select</title>
-
+<style>
+  :root{
+    --bg:#f6f8fa;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --accent:#2563eb;
+    --gap:12px;
+    --radius:10px;
+  }
+  html,body{height:100%;margin:0;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;background:var(--bg);color:#111}
+  main{max-width:820px;margin:32px auto;padding:20px}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:0 6px 20px rgba(16,24,40,0.06);padding:20px}
+  h1{margin:0 0 8px;font-size:1.25rem}
+  p.lead{margin:0 0 16px;color:var(--muted)}
+  form[name="form1"]{display:block}
+  .checkbox-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:var(--gap);align-items:center}
+  label.checkbox{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;border:1px solid #eef2ff;background:#fff}
+  label.checkbox input[type="checkbox"]{width:18px;height:18px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  button.primary{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer}
+  button.primary:hover{opacity:0.95}
+  #status{display:block;color:#b91c1c;min-height:1.2em}
+  #text{margin-top:14px;padding:12px;border-radius:8px;background:#fafafa;border:1px solid #eee;word-break:break-word}
+  a.watch-link{display:inline-block;background:#eef2ff;color:var(--accent);padding:6px 10px;border-radius:6px;text-decoration:none}
+  @media (max-width:420px){.checkbox-grid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}}
+</style>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const form = document.forms.form1;
   const status = document.getElementById('status');
+  const makeBtn = document.getElementById('makeBtn');
 
   try {
     const response = await fetch('./category.txt');
@@ -20,6 +47,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       .map(category => category.trim())
       .filter(Boolean);
 
+    const grid = document.createElement('div');
+    grid.className = 'checkbox-grid';
+
     categories.forEach((category, index) => {
       const input = document.createElement('input');
       input.type = 'checkbox';
@@ -28,15 +58,21 @@ document.addEventListener('DOMContentLoaded', async () => {
       input.checked = index === 0;
 
       const label = document.createElement('label');
-      label.append(input, document.createTextNode(` ${category}`));
-      form.append(label, document.createElement('br'));
+      label.className = 'checkbox';
+      label.append(input, document.createTextNode(category));
+      grid.appendChild(label);
     });
+
+    // replace any existing children in the form with the grid
+    form.replaceChildren(grid);
 
     status.textContent = '';
   } catch (error) {
     status.textContent = error.message;
     console.error(error);
   }
+
+  if (makeBtn) makeBtn.addEventListener('click', clickBtn1);
 });
 
 function clickBtn1() {
@@ -44,26 +80,43 @@ function clickBtn1() {
     document.querySelectorAll('input[name="color1"]:checked'),
     input => input.value
   );
+  const output = document.getElementById('text');
+  output.innerHTML = '';
+
+  if (!selected.length) {
+    output.textContent = 'カテゴリを選択してください。';
+    return;
+  }
+
+  const url = `https://missav.ws/ja/search/${encodeURIComponent(selected.join(' '))}`;
   const link = document.createElement('a');
-   const url = `https://missav.ws/ja/search/${selected.join(' ')}`;
   link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  link.className = 'watch-link';
   link.textContent = '[Watch]';
 
-  const output = document.getElementById('text');
-  output.replaceChildren(link);
+  output.appendChild(link);
 }
 </script>
 </head>
 
 <body>
 <main>
-  <form name="form1">
-    <span id="status" role="status"></span>
-  </form>
-  <br>
-  <input type="button" value="Make" onclick="clickBtn1()">
-  <br>
-  <div id="text">...</div>
+  <div class="card">
+    <h1>カテゴリを選択</h1>
+    <p class="lead">複数選択して「Make」を押すと検索リンクを生成します。</p>
+    <form name="form1">
+      <span id="status" role="status"></span>
+    </form>
+
+    <div class="controls">
+      <button id="makeBtn" class="primary" type="button">Make</button>
+      <button id="clearBtn" type="button" onclick="document.querySelectorAll('input[name=\"color1\"]').forEach(i=>i.checked=false)">Clear</button>
+    </div>
+
+    <div id="text">...</div>
+  </div>
 </main>
 </body>
 </html>
