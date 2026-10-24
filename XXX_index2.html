@@ -32,17 +32,40 @@
   button.primary{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:0.9rem}
   button.primary[aria-pressed="true"]{background:#6b7280}
   a.watch-link{display:inline-block;background:#eef2ff;color:var(--accent);padding:6px 10px;border-radius:6px;text-decoration:none;font-size:0.9rem}
+  .site-badge{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:4px;font-size:0.7rem;vertical-align:middle;background:#e5e7eb;color:#374151}
+  .site-badge.pornhub{background:#fee2e2;color:#b91c1c}
+  .site-badge.missav{background:#dcfce7;color:#15803d}
+  .video-card .note{color:#b45309;font-size:0.75rem;margin-top:4px}
   @media (max-width:420px){.video-grid{grid-template-columns:1fr}}
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
   const DEFAULT_IDS = ['ph5dece8674f9e2','ph5c5ba065b2852','ph5d37f06a73886','ph5e64ad2a0a82d','ph5970730ad30fd','ph5e39c5a829036','ph5f668f42e288c'];
   const LIST_URL = './xxx_videos.json';
+  const SITES = {
+    pornhub: {
+      label: 'Pornhub',
+      badge: '[Porn]',
+      embed: id => `https://www.pornhub.com/embed/${encodeURIComponent(id)}`,
+      watch: id => `https://jp.pornhub.com/view_video.php?viewkey=${encodeURIComponent(id)}`
+    },
+    missav: {
+      label: 'MissAV',
+      badge: '[MissAV]',
+      embed: id => `https://missav.ws/ja/${encodeURIComponent(id)}`,
+      watch: id => `https://missav.ws/ja/${encodeURIComponent(id)}`
+    }
+  };
   const status = document.getElementById('status');
   const grid = document.getElementById('text');
   const countEl = document.getElementById('count');
   const filter = document.getElementById('filter');
   let currentFrame = null;
+
+  function detectSource(video) {
+    if (video.source && SITES[String(video.source).toLowerCase()]) return String(video.source).toLowerCase();
+    return /^ph[0-9a-f]+$/i.test(video.id) ? 'pornhub' : 'missav';
+  }
 
   async function loadVideos() {
     const response = await fetch(LIST_URL);
@@ -50,7 +73,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const data = await response.json();
     const videos = (Array.isArray(data) ? data : [])
       .map(v => typeof v === 'string' ? {id: v, title: '', date: ''} : v)
-      .filter(v => v && v.id);
+      .filter(v => v && v.id)
+      .map(v => ({...v, source: detectSource(v)}));
     if (!videos.length) throw new Error('リストが空です');
     return videos;
   }
@@ -69,16 +93,22 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   function buildCard(video, index) {
+    const site = SITES[video.source] || SITES.missav;
     const card = document.createElement('article');
     card.className = 'video-card';
     card.dataset.id = video.id;
     card.dataset.title = video.title || '';
+    card.dataset.source = video.source;
 
     const title = document.createElement('h2');
     title.append(`#${index + 1} `);
     const code = document.createElement('code');
     code.textContent = video.id;
     title.appendChild(code);
+    const badge = document.createElement('span');
+    badge.className = `site-badge ${video.source}`;
+    badge.textContent = site.label;
+    title.appendChild(badge);
 
     const meta = document.createElement('p');
     meta.className = 'meta';
@@ -98,9 +128,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (mine) { stopCurrent(); return; }
       stopCurrent();
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.pornhub.com/embed/${encodeURIComponent(video.id)}`;
-      iframe.title = video.id;
+      iframe.src = site.embed(video.id);
+      iframe.title = `${site.label} ${video.id}`;
       iframe.setAttribute('allowfullscreen', '');
+      iframe.allow = 'autoplay; fullscreen; encrypted-media';
+      iframe.referrerPolicy = 'no-referrer';
       iframe.loading = 'lazy';
       player.appendChild(iframe);
       player.classList.add('open');
@@ -111,10 +143,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const watch = document.createElement('a');
     watch.className = 'watch-link';
-    watch.href = `https://jp.pornhub.com/view_video.php?viewkey=${encodeURIComponent(video.id)}`;
+    watch.href = site.watch(video.id);
     watch.target = '_blank';
     watch.rel = 'noopener';
-    watch.textContent = '[Porn]';
+    watch.textContent = site.badge;
 
     controls.append(playBtn, watch);
 
@@ -122,6 +154,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     player.className = 'player';
 
     card.append(title, meta, controls, player);
+
+    if (video.source === 'missav') {
+      const note = document.createElement('p');
+      note.className = 'meta note';
+      note.textContent = '※サイト側の制限でiframe再生できない場合は [MissAV] リンクから直接開いてください。';
+      card.appendChild(note);
+    }
+
     return card;
   }
 
@@ -142,7 +182,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     videos = await loadVideos();
   } catch (error) {
-    videos = DEFAULT_IDS.map(id => ({id, title: '', date: ''}));
+    videos = DEFAULT_IDS.map(id => ({id, title: '', date: '', source: detectSource({id})}));
     status.textContent = `リスト読み込み(${LIST_URL})に失敗したため内蔵リストを表示中 (${error.message})`;
     console.error(error);
   }
