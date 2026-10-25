@@ -13,7 +13,7 @@
         async function loadNames() {
             try {
                 // 1. 外部ファイルの読み込み
-                const response = await fetch('names.txt');
+                const response = await fetch('inames.txt');
                 if (!response.ok) throw new Error('ファイルの読み込みに失敗しました');
                 
                 const data = await response.text();
